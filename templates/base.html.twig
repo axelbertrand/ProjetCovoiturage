@@ -30,20 +30,22 @@
                     <button class="btn btn-info my-2 my-sm-0" type="submit">Rechercher</button>
                 </form>
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a style="color: #fff;" class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
-                    </li>
-                    <li class="nav-item dropdown" style="margin-right: 75px;">
-                        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Utilisateur
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Profil</a>
-                            <a class="dropdown-item" href="#">Paiement</a>
-                            <a class="dropdown-item" href="#">Se déconnecter</a>
-                        </div>
-                    </li>
-                </ul>
+                    {% if is_granted('ROLE_USER') %}
+                        <li class="nav-item dropdown" style="margin-right: 75px;">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Utilisateur
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Profil</a>
+                                <a class="dropdown-item" href="#">Paiement</a>
+                                <a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a style="color: #fff;" class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                        </li>
+                    {% endif %}
             </div>
         </nav>
 
