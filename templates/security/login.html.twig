@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        <h1 class="h3 mb-3 font-weight-normal">Connexion à TravelExpress Covoiturage</h1>
+
+        <label for="username" class="sr-only">Nom d'usager</label>
+        <input type="text" name="username" id="username" class="form-control" placeholder="Nom d'usager" required autofocus>
+        <label for="password" class="sr-only">Mot de passe</label>
+        <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe" required>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+            Se connecter
+        </button>
+    </form>
+{% endblock %}
