@@ -33,7 +33,7 @@
                     {% if is_granted('ROLE_USER') %}
                         <li class="nav-item dropdown" style="margin-right: 75px;">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Utilisateur
+                                {{ app.user.username }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="#">Profil</a>
