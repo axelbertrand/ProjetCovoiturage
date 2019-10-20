@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+    <form method="post" class="form-signin">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        <h1 class="h3 mb-3 font-weight-normal">Connexion à TravelExpress Covoiturage</h1>
+
+        <label for="username" class="sr-only">Nom d'usager</label>
+        <input type="text" value="{{ last_username }}" name="username" id="username" class="form-control" placeholder="Nom d'usager" required autofocus>
+        <label for="password" class="sr-only">Mot de passe</label>
+        <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe" required>
+
+        {# CSRF Protection #}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+            Se connecter
+        </button>
+
+        <a href="{{ path('app_register') }}" class="btn btn-lg btn-success btn-block">Créer un compte</a>
+        <a href="#" class="mt-2 d-block text-center">Mot de passe oublié</a>
+    </form>
+{% endblock %}
