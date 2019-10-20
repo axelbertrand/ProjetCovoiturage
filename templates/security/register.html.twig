@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+    <form method="post" class="form-signin">
+        <h1 class="h3 mb-3 font-weight-normal">Inscription à TravelExpress Covoiturage</h1>
+
+        <label for="username" class="sr-only">Nom d'usager</label>
+        <input type="text" name="username" id="username" class="form-control" placeholder="Nom d'usager" required autofocus>
+        <label for="password" class="sr-only">Mot de passe</label>
+        <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe" required>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+            S'inscrire
+        </button>
+    </form>
+{% endblock %}

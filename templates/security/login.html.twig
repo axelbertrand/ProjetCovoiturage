@@ -2,8 +2,13 @@
 
 {% block title %}Connexion - {{ parent() }}{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
 {% block body %}
-    <form method="post">
+    <form method="post" class="form-signin">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
@@ -21,5 +26,8 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">
             Se connecter
         </button>
+
+        <a href="{{ path('app_register') }}" class="btn btn-lg btn-success btn-block">Créer un compte</a>
+        <a href="#" class="mt-2 d-block text-center">Mot de passe oublié</a>
     </form>
 {% endblock %}
