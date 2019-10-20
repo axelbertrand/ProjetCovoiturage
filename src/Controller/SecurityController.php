@@ -45,11 +45,11 @@ class SecurityController extends AbstractController
         if ($request->isMethod('POST')) {
             $user = new User();
             $user->setUsername($request->request->get('username'));
-            $user->setFirstname('Mystery');
-            $user->setlastname('Mystery');
-            $user->setCountry('Mystery');
-            $user->setCity('Mystery');
-            $user->setEmail('Mystery@mail.fr');
+            $user->setFirstname($request->request->get('firstname'));
+            $user->setlastname($request->request->get('lastname'));
+            $user->setCountry($request->request->get('country'));
+            $user->setCity($request->request->get('city'));
+            $user->setEmail($request->request->get('email'));
             $user->setPassword($passwordEncoder->encodePassword(
                 $user,
                 $request->request->get('password')
