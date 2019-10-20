@@ -12,7 +12,7 @@
     <body>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
-            <a style="margin-left: 75px;" class="navbar-brand" href="/">TravelExpress Covoiturage</a>
+            <a href="/" class="navbar-brand">TravelExpress Covoiturage</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -43,7 +43,14 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a style="color: #fff;" class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item">
+                                    <a style="color: #fff;" class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color: #fff;" class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
+                                </li>
+                            </ul>
                         </li>
                     {% endif %}
             </div>
