@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\DeparturePublicationFormType;
@@ -12,6 +13,7 @@ class PublicationController extends AbstractController
 {
     /**
      * @Route("/publication", name="app_publication")
+     * @IsGranted("ROLE_USER")
      */
     public function index(Request $request, EntityManagerInterface $em)
     {
