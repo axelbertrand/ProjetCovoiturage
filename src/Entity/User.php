@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -57,6 +59,21 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $email;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $maximumOfSeats;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\DeparturePublication", mappedBy="user", orphanRemoval=true)
+     */
+    private $departurePublications;
+
+    public function __construct()
+    {
+        $this->departurePublications = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -187,6 +204,49 @@ class User implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getMaximumOfSeats(): ?int
+    {
+        return $this->maximumOfSeats;
+    }
+
+    public function setMaximumOfSeats(int $maximumOfSeats): self
+    {
+        $this->maximumOfSeats = $maximumOfSeats;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DeparturePublication[]
+     */
+    public function getDeparturePublications(): Collection
+    {
+        return $this->departurePublications;
+    }
+
+    public function addDeparturePublication(DeparturePublication $departurePublication): self
+    {
+        if (!$this->departurePublications->contains($departurePublication)) {
+            $this->departurePublications[] = $departurePublication;
+            $departurePublication->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeparturePublication(DeparturePublication $departurePublication): self
+    {
+        if ($this->departurePublications->contains($departurePublication)) {
+            $this->departurePublications->removeElement($departurePublication);
+            // set the owning side to null (unless already changed)
+            if ($departurePublication->getUser() === $this) {
+                $departurePublication->setUser(null);
+            }
+        }
 
         return $this;
     }

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publication - {{ parent() }}{% endblock %}
+
+{% block body %}
+    {{ form_start(departurePublicationForm) }}
+        {{ form_widget(departurePublicationForm) }}
+
+        <button type="submit" class="btn btn-primary">Annoncer un départ</button>
+    {{ form_end(departurePublicationForm) }}
+{% endblock %}
