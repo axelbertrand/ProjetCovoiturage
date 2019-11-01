@@ -21,7 +21,9 @@ class PublicationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $departurePublication = $form->getData();
 
-            // TODO: fill entity with user data
+            $user = $this->getUser();
+            $departurePublication->setUser($user);
+            $departurePublication->setRemainingSeats($user->getMaximumOfSeats());
 
             $em->persist($departurePublication);
             $em->flush();
