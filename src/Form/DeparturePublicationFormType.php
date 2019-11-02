@@ -12,9 +12,15 @@ class DeparturePublicationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('departureCity')
-            ->add('arrivalCity')
-            ->add('departureDatetime')
+            ->add('departureCity', null, [
+                'label' => 'Ville de départ'
+            ])
+            ->add('arrivalCity', null, [
+                'label' => "Ville d'arrivée"
+            ])
+            ->add('departureDatetime', null, [
+                'label' => 'Date et heure de départ'
+            ])
         ;
     }
 
