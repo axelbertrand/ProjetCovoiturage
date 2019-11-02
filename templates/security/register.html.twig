@@ -8,32 +8,41 @@
 {% endblock %}
 
 {% block body %}
-    <form method="post" class="form-signin">
-        <h1 class="h3 mb-3 font-weight-normal">Inscription à TravelExpress Covoiturage</h1>
+    <div class="col-sm-12">
+        {{ form_start(registrationForm) }}
+            {{ form_widget(registrationForm) }}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">
+                Register
+            </button>
+        {{ form_end(registrationForm) }}
+        
+        {# <form method="post" class="form-signin">
+            <h1 class="h3 mb-3 font-weight-normal">Inscription à TravelExpress Covoiturage</h1>
 
-        <label for="username" class="sr-only">Nom d'usager</label>
-        <input type="text" name="username" id="username" class="form-control" placeholder="Nom d'usager" required autofocus>
+            <label for="username" class="sr-only">Nom d'usager</label>
+            <input type="text" name="username" id="username" class="form-control" placeholder="Nom d'usager" required autofocus>
 
-        <label for="firstname" class="sr-only">Prénom</label>
-        <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Prénom" required>
-        <label for="lastname" class="sr-only">Nom de famille</label>
-        <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Nom de famille" required>
+            <label for="firstname" class="sr-only">Prénom</label>
+            <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Prénom" required>
+            <label for="lastname" class="sr-only">Nom de famille</label>
+            <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Nom de famille" required>
 
-        <label for="country" class="sr-only">Pays</label>
-        <input type="text" name="country" id="country" class="form-control" placeholder="Pays" required>
-        <label for="city" class="sr-only">Ville</label>
-        <input type="text" name="city" id="city" class="form-control" placeholder="Ville" required>
+            <label for="country" class="sr-only">Pays</label>
+            <input type="text" name="country" id="country" class="form-control" placeholder="Pays" required>
+            <label for="city" class="sr-only">Ville</label>
+            <input type="text" name="city" id="city" class="form-control" placeholder="Ville" required>
 
-        <label for="email" class="sr-only">Courriel</label>
-        <input type="email" name="email" id="email" class="form-control" placeholder="Courriel" required>
+            <label for="email" class="sr-only">Courriel</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Courriel" required>
 
-        <label for="password" class="sr-only">Mot de passe</label>
-        <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe" required>
-        <label for="password_confirm" class="sr-only">Confirmation de mot de passe</label>
-        <input type="password" name="password_confirm" id="password_confirm" class="form-control" placeholder="Confirmation de mot de passe" required>
+            <label for="password" class="sr-only">Mot de passe</label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe" required>
+            <label for="password_confirm" class="sr-only">Confirmation de mot de passe</label>
+            <input type="password" name="password_confirm" id="password_confirm" class="form-control" placeholder="Confirmation de mot de passe" required>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">
-            S'inscrire
-        </button>
-    </form>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">
+                S'inscrire
+            </button>
+        </form> #}
+    </div>
 {% endblock %}
