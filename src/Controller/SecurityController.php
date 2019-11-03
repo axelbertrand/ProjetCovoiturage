@@ -56,6 +56,8 @@ class SecurityController extends AbstractController
             $em->persist($user);
             $em->flush();
 
+            $this->addFlash('success', 'Inscription réussie');
+
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,
