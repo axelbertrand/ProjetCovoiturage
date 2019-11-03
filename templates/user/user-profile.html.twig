@@ -5,6 +5,8 @@
 {% block body %}
     <h1 class="h3 mb-3 font-weight-normal">Profil utilisateur</h1>
 
+    <a href="{{ path('app_modify_user_info') }}" class="btn btn-primary">Modifier les informations</a>
+
     <dl>
         <dt>Nom d'usager</dt>
         <dd>{{ app.user.username }}</dd>
