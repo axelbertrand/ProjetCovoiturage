@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.username }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1 class="h3 mb-3 font-weight-normal">Profil utilisateur</h1>
+
+    <dl>
+        <dt>Nom d'usager</dt>
+        <dd>{{ app.user.username }}</dd>
+        <dt>Prénom</dt>
+        <dd>{{ app.user.firstname }}</dd>
+        <dt>Nom de famille</dt>
+        <dd>{{ app.user.lastname }}</dd>
+        <dt>Pays</dt>
+        <dd>{{ app.user.country }}</dd>
+        <dt>Ville</dt>
+        <dd>{{ app.user.city }}</dd>
+        <dt>Adresse courriel</dt>
+        <dd>{{ app.user.email }}</dd>
+        <dt>Nombre de places maximum dans le véhicule</dt>
+        <dd>{{ app.user.maximumOfSeats }}</dd>
+    </dl>
+{% endblock %}
