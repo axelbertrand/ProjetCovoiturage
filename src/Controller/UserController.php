@@ -51,4 +51,15 @@ class UserController extends AbstractController
             'userInfoForm' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/user-preferences", name="app_user_preferences")
+     * @IsGranted("ROLE_USER")
+     */
+    public function preferences()
+    {
+        return $this->render('user/user-preferences.html.twig', [
+            
+        ]);
+    }
 }
