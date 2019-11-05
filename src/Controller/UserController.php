@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Form\UserRegistrationFormType;
+use App\Form\UserPreferencesFormType;
 
 class UserController extends AbstractController
 {
@@ -56,10 +57,25 @@ class UserController extends AbstractController
      * @Route("/user-preferences", name="app_user_preferences")
      * @IsGranted("ROLE_USER")
      */
-    public function preferences()
+    public function preferences(Request $request)
     {
+        $form = $this->createForm(UserPreferencesFormType::class, $this->getUser());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Préférences utilisateurs modifiées avec succès');
+
+            return $this->redirectToRoute('app_user_profile');
+        }
+
         return $this->render('user/user-preferences.html.twig', [
-            
+            'userPreferencesForm' => $form->createView()
         ]);
     }
 }
