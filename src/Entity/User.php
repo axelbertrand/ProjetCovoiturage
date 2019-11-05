@@ -78,6 +78,26 @@ class User implements UserInterface
      */
     private $departurePublications;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $canSmoke;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $canAccessDriverPhoneNumber;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $canAccessDriverEmail;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $canPutSuitcase;
+
     public function __construct()
     {
         $this->departurePublications = new ArrayCollection();
@@ -255,6 +275,54 @@ class User implements UserInterface
                 $departurePublication->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCanSmoke(): ?bool
+    {
+        return $this->canSmoke;
+    }
+
+    public function setCanSmoke(?bool $canSmoke): self
+    {
+        $this->canSmoke = $canSmoke;
+
+        return $this;
+    }
+
+    public function getCanAccessDriverPhoneNumber(): ?bool
+    {
+        return $this->canAccessDriverPhoneNumber;
+    }
+
+    public function setCanAccessDriverPhoneNumber(?bool $canAccessDriverPhoneNumber): self
+    {
+        $this->canAccessDriverPhoneNumber = $canAccessDriverPhoneNumber;
+
+        return $this;
+    }
+
+    public function getCanAccessDriverEmail(): ?bool
+    {
+        return $this->canAccessDriverEmail;
+    }
+
+    public function setCanAccessDriverEmail(?bool $canAccessDriverEmail): self
+    {
+        $this->canAccessDriverEmail = $canAccessDriverEmail;
+
+        return $this;
+    }
+
+    public function getCanPutSuitcase(): ?bool
+    {
+        return $this->canPutSuitcase;
+    }
+
+    public function setCanPutSuitcase(?bool $canPutSuitcase): self
+    {
+        $this->canPutSuitcase = $canPutSuitcase;
 
         return $this;
     }
