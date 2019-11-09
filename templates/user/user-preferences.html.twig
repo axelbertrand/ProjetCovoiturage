@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Préférences - {{ parent() }}{% endblock %}
+
+{% block body %}
+    {{ form_start(userPreferencesForm, {
+        'attr': {'class': 'form-signin'}
+    }) }}
+        <h1 class="h3 mb-3 font-weight-normal">Modifier les préférences</h1>
+        {{ form_widget(userPreferencesForm) }}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+            Modifier
+        </button>
+    {{ form_end(userPreferencesForm) }}
+{% endblock %}

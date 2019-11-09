@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.username }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    {{ form_start(userInfoForm, {
+        'attr': {'class': 'form-signin'}
+    }) }}
+        <h1 class="h3 mb-3 font-weight-normal">Modifier les informations</h1>
+        {{ form_widget(userInfoForm) }}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+            Modifier
+        </button>
+    {{ form_end(userInfoForm) }}
+{% endblock %}

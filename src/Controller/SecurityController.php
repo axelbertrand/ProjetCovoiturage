@@ -9,7 +9,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use App\Security\LoginFormAuthenticator;
-use App\Entity\User;
 use App\Form\UserRegistrationFormType;
 
 class SecurityController extends AbstractController
@@ -56,6 +55,8 @@ class SecurityController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            $this->addFlash('success', 'Inscription réussie');
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
