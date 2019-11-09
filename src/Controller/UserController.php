@@ -57,7 +57,7 @@ class UserController extends AbstractController
      * @Route("/user-preferences", name="app_user_preferences")
      * @IsGranted("ROLE_USER")
      */
-    public function preferences(Request $request)
+    public function userPreferences(Request $request)
     {
         $form = $this->createForm(UserPreferencesFormType::class, $this->getUser());
         $form->handleRequest($request);
@@ -76,6 +76,17 @@ class UserController extends AbstractController
 
         return $this->render('user/user-preferences.html.twig', [
             'userPreferencesForm' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/user-publications", name="app_user_publications")
+     * @IsGranted("ROLE_USER")
+     */
+    public function userPublications()
+    {
+        return $this->render('user/user-publications.html.twig', [
+            
         ]);
     }
 }
