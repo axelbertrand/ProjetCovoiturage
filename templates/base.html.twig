@@ -24,12 +24,12 @@
                        <a style="color: #fff;" class="nav-link" href="{{ path('app_publication') }}">Annoncer un départ</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
+                <form class="form-inline my-2 my-lg-0" action="{{ path('app_search_publication') }}">
                     <div class="input-group">
-                        <input class="form-control" type="search" placeholder="Rechercher" aria-label="Search">
+                        <input class="form-control" name="departureCity" type="search" placeholder="Ville de départ" aria-label="Departure city">
+						<input class="form-control" name="arrivalCity" type="search" placeholder="Ville d'arrivée" aria-label="Arrival city">
                         <div class="input-group-append" style="height: 2.4rem;">
                             <button class="btn btn-info" type="submit"><i class="material-icons">search</i></button>
-                            {# <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button> #}
                         </div>
                     </div>
                 </form>

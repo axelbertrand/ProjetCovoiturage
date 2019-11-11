@@ -39,4 +39,21 @@ class PublicationController extends AbstractController
             'departurePublicationForm' => $form->createView()
         ]);
     }
+	
+	/**
+     * @Route("/search-publication", name="app_search_publication")
+     */
+	 public function searchPublication(Request $request, EntityManagerInterface $em)
+	 {
+		 $departureCity = $request->query->get('departureCity');
+		 $arrivalCity = $request->query->get('arrivalCity');
+		 
+		 $listPublications = $em->getRepository('App:DeparturePublication')->findByDepartureAndArrivalCity($departureCity, $arrivalCity);
+		 
+		 return $this->render('publication/search-publication.html.twig', [
+			'departureCity' => $departureCity,
+			'arrivalCity' => $arrivalCity,
+            'publications' => $listPublications
+         ]);
+	 }
 }

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prochains départs de {{ departureCity }} vers {{ arrivalCity }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1 class="h3 mb-3 font-weight-normal">Prochains départs de {{ departureCity }} vers {{ arrivalCity }}</h1>
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Date et heure de départ</th>
+                <th scope="col">Nombre de places restantes</th>
+				<th scope="col">Espace fumeur</th>
+				<th scope="col">Téléphone du conducteur</th>
+				<th scope="col">Mail du conducteur</th>
+				<th scope="col">Espace pour les bagages</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for departurePublication in publications %}
+                <tr>
+                    <td>{{ departurePublication.departureDateTime|date('m/d/Y h:i:s') }}</td>
+                    <td>{{ departurePublication.remainingSeats }}</td>
+					<td>{{ departurePublication.user.canSmoke ? 'Oui' : 'Non' }}</td>
+					<td>{{ departurePublication.user.canAccessDriverPhoneNumber ? 'Oui' : 'Non' }}</td>
+					<td>{{ departurePublication.user.canAccessDriverEmail ? 'Oui' : 'Non' }}</td>
+					<td>{{ departurePublication.user.canPutSuitcase ? 'Oui' : 'Non' }}</td>
+                </tr>
+            {% else %}
+                <td colspan="6"><em class="d-block text-center">Aucun départ trouvé</em></td>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
