@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\DeparturePublicationFormType;
+use App\Entity\DeparturePublication;
 
 class PublicationController extends AbstractController
 {
@@ -43,17 +44,31 @@ class PublicationController extends AbstractController
 	/**
      * @Route("/search-publication", name="app_search_publication")
      */
-	 public function searchPublication(Request $request, EntityManagerInterface $em)
-	 {
-		 $departureCity = $request->query->get('departureCity');
-		 $arrivalCity = $request->query->get('arrivalCity');
-		 
-		 $listPublications = $em->getRepository('App:DeparturePublication')->findByDepartureAndArrivalCity($departureCity, $arrivalCity);
-		 
-		 return $this->render('publication/search-publication.html.twig', [
-			'departureCity' => $departureCity,
-			'arrivalCity' => $arrivalCity,
+    public function searchPublication(Request $request, EntityManagerInterface $em)
+    {
+        // TODO: Get all publications when query parameters are empty
+        $departureCity = $request->query->get('departureCity');
+        $arrivalCity = $request->query->get('arrivalCity');
+        
+        $listPublications = $em->getRepository(DeparturePublication::class)->findByDepartureAndArrivalCity($departureCity, $arrivalCity);
+        
+        return $this->render('publication/search-publication.html.twig', [
+            'departureCity' => $departureCity,
+            'arrivalCity' => $arrivalCity,
             'publications' => $listPublications
-         ]);
-	 }
+        ]);
+    }
+
+    /**
+     * @Route("/reserve-publication/{id}", name="app_reserve_publication")
+     */
+    public function reservePublication(Request $request, DeparturePublication $publication, EntityManagerInterface $em)
+    {
+        $numberOfSeatsReserved = $request->request->get('numberOfSeatsReserved');
+
+        $publication->setRemainingSeats($publication->getRemainingSeats() - $numberOfSeatsReserved);
+        $em->flush();
+
+        return $this->redirectToRoute('app_homepage');
+    }
 }
