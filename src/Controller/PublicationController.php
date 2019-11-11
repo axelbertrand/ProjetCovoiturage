@@ -69,6 +69,8 @@ class PublicationController extends AbstractController
         $publication->setRemainingSeats($publication->getRemainingSeats() - $numberOfSeatsReserved);
         $em->flush();
 
+        $this->addFlash('success', 'Réservation effectuée avec succès');
+
         return $this->redirectToRoute('app_homepage');
     }
 }
