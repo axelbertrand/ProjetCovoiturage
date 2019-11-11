@@ -47,4 +47,19 @@ class DeparturePublicationRepository extends ServiceEntityRepository
         ;
     }
     */
+	
+	public function findByDepartureAndArrivalCity($departure, $arrival)
+	{
+		return $this->createQueryBuilder('d')
+            ->where('LOWER(d.departureCity) = LOWER(:departureCity)')
+            ->setParameter('departureCity', $departure)
+			->andWhere('LOWER(d.arrivalCity) = LOWER(:arrivalCity)')
+            ->setParameter('arrivalCity', $arrival)
+			->andWhere('d.departureDatetime > :now')
+			->setParameter('now', date('Y/m/d H:i:s'))
+            ->orderBy('d.departureDatetime', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+	}
 }
