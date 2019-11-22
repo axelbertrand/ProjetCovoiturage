@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\DeparturePublicationFormType;
 use App\Entity\DeparturePublication;
+use App\Entity\Reservation;
 use App\Repository\DeparturePublicationRepository;
 
 class PublicationController extends AbstractController
@@ -71,6 +72,12 @@ class PublicationController extends AbstractController
 
             return $this->redirectToRoute('app_search_publication');
         }
+
+        $reservation = new Reservation;
+        $reservation->setUser($this->getUser());
+        $reservation->setDeparturePublication($publication);
+        $reservation->setNumberOfSeats($numberOfSeatsReserved);
+        $em->persist($reservation);
 
         $publication->setRemainingSeats($publication->getRemainingSeats() - $numberOfSeatsReserved);
         $em->flush();
