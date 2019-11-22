@@ -65,6 +65,11 @@ class PublicationController extends AbstractController
     public function reservePublication(Request $request, DeparturePublication $publication, EntityManagerInterface $em)
     {
         $numberOfSeatsReserved = $request->request->get('numberOfSeatsReserved');
+        if ($numberOfSeatsReserved > $publication->getRemainingSeats()) {
+            $this->addFlash('danger', "Impossible de réserver plus de places que le nombre de places qu'il reste");
+
+            return $this->redirectToRoute('app_search_publication');
+        }
 
         $publication->setRemainingSeats($publication->getRemainingSeats() - $numberOfSeatsReserved);
         $em->flush();
