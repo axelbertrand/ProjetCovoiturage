@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\DeparturePublicationFormType;
 use App\Entity\DeparturePublication;
+use App\Repository\DeparturePublicationRepository;
 
 class PublicationController extends AbstractController
 {
@@ -44,13 +45,12 @@ class PublicationController extends AbstractController
 	/**
      * @Route("/search-publication", name="app_search_publication")
      */
-    public function searchPublication(Request $request, EntityManagerInterface $em)
+    public function searchPublication(Request $request, DeparturePublicationRepository $departurePublicationRepository)
     {
-        // TODO: Get all publications when query parameters are empty
         $departureCity = $request->query->get('departureCity');
         $arrivalCity = $request->query->get('arrivalCity');
-        
-        $listPublications = $em->getRepository(DeparturePublication::class)->findByDepartureAndArrivalCity($departureCity, $arrivalCity);
+
+        $listPublications = $departurePublicationRepository->findByDepartureAndArrivalCity($departureCity, $arrivalCity);
         
         return $this->render('publication/search-publication.html.twig', [
             'departureCity' => $departureCity,
