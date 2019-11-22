@@ -61,6 +61,7 @@ class PublicationController extends AbstractController
 
     /**
      * @Route("/reserve-publication/{id}", name="app_reserve_publication")
+     * @IsGranted("ROLE_USER")
      */
     public function reservePublication(Request $request, DeparturePublication $publication, EntityManagerInterface $em)
     {
