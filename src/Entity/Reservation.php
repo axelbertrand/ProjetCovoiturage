@@ -28,6 +28,11 @@ class Reservation
      */
     private $departurePublication;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $numberOfSeats;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,6 +58,18 @@ class Reservation
     public function setDeparturePublication(?DeparturePublication $departurePublication): self
     {
         $this->departurePublication = $departurePublication;
+
+        return $this;
+    }
+
+    public function getNumberOfSeats(): ?int
+    {
+        return $this->numberOfSeats;
+    }
+
+    public function setNumberOfSeats(int $numberOfSeats): self
+    {
+        $this->numberOfSeats = $numberOfSeats;
 
         return $this;
     }
