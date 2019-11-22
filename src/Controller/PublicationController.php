@@ -8,6 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\DeparturePublicationFormType;
+use App\Entity\DeparturePublication;
+use App\Entity\Reservation;
+use App\Repository\DeparturePublicationRepository;
 
 class PublicationController extends AbstractController
 {
@@ -43,17 +46,44 @@ class PublicationController extends AbstractController
 	/**
      * @Route("/search-publication", name="app_search_publication")
      */
-	 public function searchPublication(Request $request, EntityManagerInterface $em)
-	 {
-		 $departureCity = $request->query->get('departureCity');
-		 $arrivalCity = $request->query->get('arrivalCity');
-		 
-		 $listPublications = $em->getRepository('App:DeparturePublication')->findByDepartureAndArrivalCity($departureCity, $arrivalCity);
-		 
-		 return $this->render('publication/search-publication.html.twig', [
-			'departureCity' => $departureCity,
-			'arrivalCity' => $arrivalCity,
+    public function searchPublication(Request $request, DeparturePublicationRepository $departurePublicationRepository)
+    {
+        $departureCity = $request->query->get('departureCity');
+        $arrivalCity = $request->query->get('arrivalCity');
+
+        $listPublications = $departurePublicationRepository->findByDepartureAndArrivalCity($departureCity, $arrivalCity);
+        
+        return $this->render('publication/search-publication.html.twig', [
+            'departureCity' => $departureCity,
+            'arrivalCity' => $arrivalCity,
             'publications' => $listPublications
-         ]);
-	 }
+        ]);
+    }
+
+    /**
+     * @Route("/reserve-publication/{id}", name="app_reserve_publication")
+     * @IsGranted("ROLE_USER")
+     */
+    public function reservePublication(Request $request, DeparturePublication $publication, EntityManagerInterface $em)
+    {
+        $numberOfSeatsReserved = $request->request->get('numberOfSeatsReserved');
+        if ($numberOfSeatsReserved > $publication->getRemainingSeats()) {
+            $this->addFlash('danger', "Impossible de réserver plus de places que le nombre de places qu'il reste");
+
+            return $this->redirectToRoute('app_search_publication');
+        }
+
+        $reservation = new Reservation;
+        $reservation->setUser($this->getUser());
+        $reservation->setDeparturePublication($publication);
+        $reservation->setNumberOfSeats($numberOfSeatsReserved);
+        $em->persist($reservation);
+
+        $publication->setRemainingSeats($publication->getRemainingSeats() - $numberOfSeatsReserved);
+        $em->flush();
+
+        $this->addFlash('success', 'Réservation effectuée avec succès');
+
+        return $this->redirectToRoute('app_homepage');
+    }
 }
