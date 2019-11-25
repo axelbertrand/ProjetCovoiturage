@@ -43,6 +43,14 @@ class PaymentController extends AbstractController
 
         $publication = $reservation->getDeparturePublication();
         $publication->setRemainingSeats($publication->getRemainingSeats() - $reservation->getNumberOfSeats());
+
+        $user = $reservation->getUser();
+        if($user->getBankAccount() < 5) {
+            $this->addFlash('danger', "Vous n'avez pas assez d'argent dans votre compte en banque");
+            return $this->redirectToRoute('app_pay_reservation');
+        }
+        
+        $user->setBankAccount($user->getBankAccount() - 5);
         $em->flush();
         $session->remove('reservation');
 
