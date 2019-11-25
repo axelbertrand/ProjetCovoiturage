@@ -30,7 +30,7 @@
                             <div class="input-group">
                                 <input type="number" name="numberOfSeatsReserved" value="1" min="1" max="{{ departurePublication.remainingSeats }}" aria-label="Number of seats" class="form-control">
                                 <div class="input-group-append">
-                                    <button type="submit" class="btn btn-primary">Réserver</button>
+                                    <button type="submit" class="btn btn-primary" {% if departurePublication.remainingSeats <= 0 %}disabled{% endif %}>Réserver</button>
                                 </div>
                             </div>
                         </form>
