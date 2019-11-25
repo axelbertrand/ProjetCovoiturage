@@ -103,6 +103,11 @@ class User implements UserInterface
      */
     private $reservations;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $bankAccount;
+
     public function __construct()
     {
         $this->departurePublications = new ArrayCollection();
@@ -360,6 +365,18 @@ class User implements UserInterface
                 $reservation->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBankAccount(): ?float
+    {
+        return $this->bankAccount;
+    }
+
+    public function setBankAccount(float $bankAccount): self
+    {
+        $this->bankAccount = $bankAccount;
 
         return $this;
     }
