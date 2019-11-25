@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\DeparturePublicationFormType;
 use App\Entity\DeparturePublication;
@@ -64,7 +65,7 @@ class PublicationController extends AbstractController
      * @Route("/reserve-publication/{id}", name="app_reserve_publication")
      * @IsGranted("ROLE_USER")
      */
-    public function reservePublication(Request $request, DeparturePublication $publication, EntityManagerInterface $em)
+    public function reservePublication(Request $request, DeparturePublication $publication, SessionInterface $session)
     {
         $numberOfSeatsReserved = $request->request->get('numberOfSeatsReserved');
         if ($numberOfSeatsReserved > $publication->getRemainingSeats()) {
@@ -77,13 +78,8 @@ class PublicationController extends AbstractController
         $reservation->setUser($this->getUser());
         $reservation->setDeparturePublication($publication);
         $reservation->setNumberOfSeats($numberOfSeatsReserved);
-        $em->persist($reservation);
+        $session->set('reservation', $reservation);
 
-        $publication->setRemainingSeats($publication->getRemainingSeats() - $numberOfSeatsReserved);
-        $em->flush();
-
-        $this->addFlash('success', 'Réservation effectuée avec succès');
-
-        return $this->redirectToRoute('app_homepage');
+        return $this->redirectToRoute('app_pay_reservation');
     }
 }
